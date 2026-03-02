@@ -17,7 +17,8 @@ Este repositorio contiene la resolución a un test de tratamiento y manipulació
 El script de Python procesa la información de los archivos de origen (`Estudiantes.csv`, `Asignaturas.csv` e `Inscripcion.csv`) mediante los siguientes pasos:
 
 1. **Carga e Integración:** Lee los datos de los CSV de origen y los estructura para su manipulación relacional.
-2. **Análisis de Rendimiento (Ejercicio 1):** * Calcula el promedio general de calificaciones por cada materia.
+2. **Análisis de Rendimiento (Ejercicio 1):** 
+   * Calcula el promedio general de calificaciones por cada materia.
    * Filtra y obtiene las 3 calificaciones más altas de cada asignatura.
    * Genera una bandera comparativa (`1` si la calificación del alumno es mayor al promedio de la materia, `0` si es menor o igual).
    * Exporta un archivo CSV únicamente con los alumnos que superaron el promedio.
