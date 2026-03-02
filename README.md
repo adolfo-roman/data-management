@@ -7,7 +7,7 @@
 2. Adolfo Román Jiménez
 3. Sebastian Emiliano Gayosso Rosillo
 4. Jaime Manuel Miranda Serrano
-5.
+5. Francisco Joshua Quintero Montero
 6.
 
 ## Descripción del Proyecto
