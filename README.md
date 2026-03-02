@@ -8,7 +8,7 @@
 3. Sebastian Emiliano Gayosso Rosillo
 4. Jaime Manuel Miranda Serrano
 5. Francisco Joshua Quintero Montero
-6.
+6. Alexa Fernanda López Tavera 
 
 ## Descripción del Proyecto
 Este repositorio contiene la resolución a un test de tratamiento y manipulación de datos. El objetivo principal es la ingesta, transformación y extracción de información a partir de registros escolares (estudiantes, asignaturas e inscripciones) para la posterior toma de decisiones, utilizando Python y metodologías ETL.
