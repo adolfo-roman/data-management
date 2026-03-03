@@ -66,12 +66,16 @@ La fase final se encarga de la persistencia de los datos en el servidor de desti
 
   
 ### Pregunta 4: Limpieza de caracteres y nulos con flujos analíticos
-**Herramienta propuesta:** Tableau Prep Builder
+**Herramienta propuesta: Tableau Prep Builder**
 
-Para retirar campos vacíos y caracteres especiales de un archivo CSV y depositarlo en un repositorio, los pasos dentro del flujo serían:
+Para retirar campos vacíos y caracteres especiales de un archivo CSV y depositarlo en un repositorio mediante un flujo analítico, los pasos a seguir son los descritos a continuación:
 
-1. **Conexión:** Se arrastra el archivo CSV al lienzo para crear el nodo inicial de ingesta de datos.
-2. **Paso de Limpieza (Clean Step):** Se añade un nodo de limpieza inmediatamente después de la conexión.
-   * **Retirar campos vacíos:** Se seleccionan las columnas clave y se aplica un filtro para excluir o remover los valores nulos.
-   * **Retirar caracteres especiales:** Para eliminar comas, saltos de línea, diagonales y pipelines de los campos, se crea un campo calculado. Se utiliza una función de reemplazo o expresiones regulares (ej. `REGEXP_REPLACE`) para sustituir esos caracteres por una cadena vacía.
-3. **Salida (Output):** Se añade un nodo de salida al final del flujo para depositarlo en el repositorio. Se configura para guardar el resultado como una tabla en una base de datos o como un archivo CSV limpio, y se ejecuta el flujo.
+1. Se arrastra el archivo CSV al lienzo para crear el nodo inicial de ingesta de datos.
+
+2. Se utiliza el perfil de datos para identificar campos vacíos, valores nulos, registros incompletos o problemas en delimitadores.
+
+3. Se añade un nodo de limpieza inmediatamente después de la conexión. Se aplican filtros sobre columnas clave para excluir registros con valores nulos o reemplazarlos por valores por defecto según la lógica del negocio. Para eliminar comas internas, saltos de línea, diagonales, pipelines (`|`) u otros caracteres problemáticos, se crea un campo calculado usando funciones de reemplazo o expresiones regulares como `REGEXP_REPLACE`. También se estandarizan los datos aplicando funciones como `TRIM`, conversión a mayúsculas/minúsculas y validación de tipos de dato.
+
+4. Se verifica que el número de columnas sea consistente, que no existan delimitadores mal interpretados y que los tipos de datos sean correctos.
+
+5. Finalmente, se añade un nodo de salida para guardar el CSV limpio como un nuevo archivo o insertarlo directamente en una base de datos (data warehouse o almacenamiento en la nube) mediante conexión ODBC/JDBC, ejecutando el flujo para depositarlo en el repositorio final.
