@@ -34,12 +34,37 @@ El script de Python procesa la información de los archivos de origen (`Estudian
 ### Pregunta 3: Carga de archivos CSV en una base de datos mediante ETL
 **Herramienta propuesta:** Pentaho Data Integration (Kettle) / Talend Open Studio
 
-El procedimiento estándar usando un flujo ETL gráfico consistiría en tres fases:
+Para que este proceso sea exitoso en la herramienta eligida de nombre Pentaho (PDI) se debe considerar lo siguiente:
 
-1. **Extracción (Extract):** Se agrega un nodo de entrada. Se configura la ruta de los archivos CSV generados en los ejercicios anteriores, definiendo el delimitador y el tipo de dato para cada columna.
-2. **Transformación (Transform):** Se utiliza un nodo intermedio para mapear los nombres de las columnas del CSV a los nombres exactos que tienen los campos en la tabla de la base de datos destino. 
-3. **Carga (Load):** Se agrega un nodo de salida. Se configuran las credenciales de conexión hacia el manejador de base de datos objetivo. Se selecciona la tabla destino, se activa la opción de mapeo de campos y se ejecuta el flujo para insertar los registros.
+El proceso de integración de archivos CSV en un motor de base de datos relacional se estructura a través de un flujo de trabajo que prioriza la integridad y la eficiencia del procesamiento.
 
+***1. Fase de Extracción: Configuración y Normalización de Origen***
+
+En esta etapa, se establece la conexión con el archivo plano y se definen los parámetros de lectura:
+
+* Codificación de Caracteres: Se debe especificar el
+formato (comúnmente UTF-8) para garantizar la correcta interpretación de caracteres especiales y tildes
+* Definición de Esquema: Se realiza la asignación manual de tipos de datos para cada columna (Entero, Cadena, Fecha, Flotante), evitando la detección automática si existen valores nulos que puedan inducir a error.
+* Tratamiento de Delimitadores: Se configura el separador de campos (coma, punto y coma o tabulación) y el símbolo de encerrado de texto para prevenir rupturas en la estructura del registro.
+
+
+***2. Fase de Transformación: Limpieza y Mapeo (Data Cleansing)***
+
+Antes de la inserción, los datos deben someterse a una validación estructural:
+
+* Normalización de Formatos: Se transforman los formatos de fecha del CSV al estándar requerido por el motor de base de datos (por ejemplo, de DD/MM/YYYY a YYYY-MM-DD).
+* Limpieza de Espacios: Se aplica una operación de Trim para eliminar espacios en blanco accidentales al inicio o final de las cadenas de texto.
+* Resolución de Conflictos: Se utiliza un componente de mapeo (como Select Values o tMap) para alinear técnicamente los nombres de las columnas del origen con los nombres de los campos en el esquema de destino.
+
+***3. Fase de Carga: Inserción y Control de Errores***
+
+La fase final se encarga de la persistencia de los datos en el servidor de destino:
+
+* Configuración de Conexión: Se establecen los parámetros del host, puerto, base de datos y credenciales mediante el uso de drivers JDBC o nativos.
+* Optimización de Carga: Se define un tamaño de lote (Commit Size) para procesar registros en bloques, lo que reduce el consumo de recursos y el tiempo de ejecución.
+* Gestión de Excepciones: Se implementa un flujo de salida de errores hacia un archivo de registro (Log). Esto permite que, en caso de que un registro viole una restricción de integridad (como una llave primaria duplicada), el proceso continúe con el resto de la carga sin detenerse.
+
+  
 ### Pregunta 4: Limpieza de caracteres y nulos con flujos analíticos
 **Herramienta propuesta:** Tableau Prep Builder
 
